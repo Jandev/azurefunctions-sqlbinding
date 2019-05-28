@@ -3,7 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{F75A4036-D184-4C77-A2A6-ABBA234B8799}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions.SqlBinding", "AzureFunctions.SqlBinding\AzureFunctions.SqlBinding.csproj", "{C42565A2-B121-45D4-A53C-21F0FDB72576}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionApp", "FunctionApp\FunctionApp.csproj", "{42CBF9EA-CAC2-429D-9280-4703F2087440}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C42565A2-B121-45D4-A53C-21F0FDB72576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C42565A2-B121-45D4-A53C-21F0FDB72576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C42565A2-B121-45D4-A53C-21F0FDB72576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C42565A2-B121-45D4-A53C-21F0FDB72576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42CBF9EA-CAC2-429D-9280-4703F2087440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42CBF9EA-CAC2-429D-9280-4703F2087440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42CBF9EA-CAC2-429D-9280-4703F2087440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42CBF9EA-CAC2-429D-9280-4703F2087440}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
