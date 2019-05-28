@@ -1,33 +1,33 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using AzureFunctions.SqlBinding;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FunctionApp
 {
-    public static class Test
-    {
-        [FunctionName(nameof(Test))]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
-        {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+	public static class Test
+	{
+		[FunctionName(nameof(GetSingleRecord))]
+		public static IActionResult GetSingleRecord(
+			[HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = nameof(GetSingleRecord))]
+			HttpRequest req,
+			[SqlServer(Query = "SELECT TOP 1 Id, Name, Description FROM MyTable")]
+			SqlServerModel model)
+		{
+			return new OkObjectResult(model.Record.Id);
+		}
 
-            string name = req.Query["name"];
-
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
-
-            return name != null
-                ? (ActionResult)new OkObjectResult($"Hello, {name}")
-                : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
-        }
-    }
+		[FunctionName(nameof(GetCollectionFromSqlServer))]
+		public static IActionResult GetCollectionFromSqlServer(
+			[HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = nameof(GetCollectionFromSqlServer))]
+			HttpRequest req,
+			[SqlServer(Query = "SELECT TOP 100 Id, Name, Description FROM MyTable")]
+			IEnumerable<SqlServerModel> collection)
+		{
+			return new OkObjectResult(collection.Select(m => m.Record.Id));
+		}
+	}
 }
