@@ -2,6 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Jan de Vries</Authors>
+    <Description>A custom binding for MS SQL Server which can be used in an Azure Function project.</Description>
+    <PackageProjectUrl>https://github.com/Jandev/azurefunctions-sqlbinding</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Jandev/azurefunctions-sqlbinding</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>AzureFunctions Bindings SQL</PackageTags>
+    <PackageReleaseNotes>The initial version of a SQL Server input binding for usage in Azure Functions.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
