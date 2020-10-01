@@ -29,7 +29,7 @@ namespace AzureFunctions.SqlBinding
         {
             var collection = new List<SqlServerModel>();
             using (var connection = new SqlConnection(attribute.ConnectionString))
-            {                                
+            {
                 if (isManagedIdentity(attribute.ConnectionString))
                 {
                     accessToken = await GetAccessToken();
@@ -94,7 +94,7 @@ namespace AzureFunctions.SqlBinding
         }
 
         private async Task<string> GetAccessToken()
-        {           
+        {
             var tokenProvider = new AzureServiceTokenProvider();
             string accessToken = await tokenProvider.GetAccessTokenAsync("https://database.windows.net/");
             return accessToken;
@@ -107,7 +107,7 @@ namespace AzureFunctions.SqlBinding
 
             foreach (var term in terms)
             {
-                if (connectionString.IndexOf(term,0, StringComparison.InvariantCultureIgnoreCase)!=-1)
+                if (connectionString.IndexOf(term, 0, StringComparison.InvariantCultureIgnoreCase) != -1)
                 {
                     return false;
                 }
