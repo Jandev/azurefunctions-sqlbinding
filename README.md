@@ -46,7 +46,7 @@ the default name `SqlServerConnectionString` will be used.
 		"FUNCTIONS_WORKER_RUNTIME": "dotnet"
 	},
 	"ConnectionStrings": {
-		"SqlServerConnectionString": "Server=(localdb)\\snelstart;Database=MySqlBindingDatabase;Trusted_Connection=True",
+		"SqlServerConnectionString": "Server=(localdb)\\myInstance;Database=MySqlBindingDatabase;Trusted_Connection=True",
 		"providerName": "System.Data.SqlClient"
 	}
 }
