@@ -8,12 +8,22 @@
     <RepositoryUrl>https://github.com/Jandev/azurefunctions-sqlbinding</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>AzureFunctions Bindings SQL</PackageTags>
-    <PackageReleaseNotes>The initial version of a SQL Server input binding for usage in Azure Functions.</PackageReleaseNotes>
+    <PackageReleaseNotes>- The initial version of a SQL Server input binding for usage in Azure Functions.
+- Package added with logo
+</PackageReleaseNotes>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.8" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
