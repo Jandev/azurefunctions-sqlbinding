@@ -1,4 +1,4 @@
-name: developrelease
+name: Build, Test and Release a Beta version
 
 on:
   pull_request:
