@@ -33,8 +33,11 @@ jobs:
       run: dotnet build ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --configuration Release --no-restore
     - name: Test
       run: dotnet test ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --no-restore --verbosity normal
-    - name: Pack with dotnet
-      run: dotnet pack ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --output nuget-packages --configuration Release -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersion }} 
-    - name: Push with dotnet
-      run: dotnet nuget push nuget-packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+    - name: Publish NuGet
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      with:
+        PROJECT_FILE_PATH: ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj
+        VERSION_STATIC: ${{ steps.gitversion.outputs.nuGetVersion }}
+        TAG_FORMAT: '*'
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
