@@ -1,4 +1,4 @@
-name: dotnetbuild
+name: Build & Test
 
 on:
   pull_request:
