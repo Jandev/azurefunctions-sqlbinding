@@ -1,8 +1,8 @@
 name: Build, Test and Release a Beta version
 
 on:
-  pull_request:
-    branches: [ master ]
+  push:
+    branches: [ develop ]
 
 jobs:
   build:
@@ -29,6 +29,5 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
-        draft: false
         prerelease: true
     
