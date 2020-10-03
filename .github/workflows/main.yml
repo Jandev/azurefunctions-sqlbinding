@@ -16,7 +16,7 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj
     - name: Build
       run: dotnet build ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --configuration Release --no-restore
     - name: Test
