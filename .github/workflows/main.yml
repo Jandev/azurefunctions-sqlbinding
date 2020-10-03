@@ -39,5 +39,5 @@ jobs:
         PROJECT_FILE_PATH: ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj
         VERSION_STATIC: ${{ steps.gitversion.outputs.nuGetVersion }}
         TAG_FORMAT: '*'
-        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+        NUGET_KEY: ${{ secrets.NUGET_KEY  }}
 
