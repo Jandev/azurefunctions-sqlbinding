@@ -1,7 +1,7 @@
 name: Build, Test & Release to Nuget from master branch
 
 on:
-  pull_request:
+  push:
     branches: [ master ]
 
 jobs:
