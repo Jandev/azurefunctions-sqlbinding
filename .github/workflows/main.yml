@@ -21,7 +21,7 @@ jobs:
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.4
     - run: |
-        echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
+        echo "NuGetVersion: ${{ steps.gitversion.outputs.nuGetVersion }}"
         echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}"
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -37,6 +37,6 @@ jobs:
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
         PROJECT_FILE_PATH: ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj
-        VERSION_STATIC: ${{ steps.gitversion.outputs.nuGetVersion }}
+        VERSION_STATIC: ${{ steps.gitversion.outputs.nuGetVersion }}-${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}
         NUGET_KEY: ${{secrets.NUGET_KEY}}
 
