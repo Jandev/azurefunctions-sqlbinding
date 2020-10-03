@@ -11,6 +11,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9
+      with:
+          versionSpec: '5.1.x'
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9
+    - run: |
+        echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
+        echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}"
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -21,8 +31,8 @@ jobs:
       run: dotnet build ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --configuration Release --no-restore
     - name: Test
       run: dotnet test ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --no-restore --verbosity normal
-    - name: Publish NuGet
-      uses: brandedoutcast/publish-nuget@v2.5.5
-      with:
-        PROJECT_FILE_PATH: ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj
+    - name: Pack with dotnet
+      run: dotnet pack ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --output nuget-packages --configuration Release -p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}-${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }} 
+    - name: Push with dotnet
+      run: dotnet nuget push nuget-packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
