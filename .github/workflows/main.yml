@@ -1,0 +1,42 @@
+name: Build, Test & Release to Nuget from master branch
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Fetch all history for all tags and branches
+      run: git fetch --unshallow || true
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.4
+      with:
+          versionSpec: '5.3.x'
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.4
+    - run: |
+        echo "NuGetVersion: ${{ steps.gitversion.outputs.nuGetVersion }}"
+        echo "NuGetPreReleaseTagV2: ${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}"
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj
+    - name: Build
+      run: dotnet build ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --configuration Release --no-restore
+    - name: Test
+      run: dotnet test ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj --no-restore --verbosity normal
+    - name: Publish NuGet
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      with:
+        PROJECT_FILE_PATH: ./src/AzureFunctions.SqlBinding/AzureFunctions.SqlBinding.csproj
+        VERSION_STATIC: ${{ steps.gitversion.outputs.nuGetVersion }}-${{ steps.gitversion.outputs.CommitsSinceVersionSourcePadded }}
+        NUGET_KEY: ${{secrets.NUGET_KEY}}
+
