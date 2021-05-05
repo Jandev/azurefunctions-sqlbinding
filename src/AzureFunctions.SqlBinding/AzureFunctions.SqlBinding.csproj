@@ -2,18 +2,47 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <PropertyGroup>
+    <!-- For local/debug builds -->
+    <VersionSuffix Condition=" '$(Configuration)' == 'Debug' ">debug</VersionSuffix>
+    <!-- This is using variables that are specific to Azure Dev Ops Pipelines -->
+    <VersionSuffix Condition=" '$(Build_SourceBranch)' == 'refs/heads/develop' ">beta.$(Build_BuildID)</VersionSuffix>
+    <PackageId>AzureFunctions.SqlBinding</PackageId>
     <Authors>Jan de Vries</Authors>
+    <Company />
     <Description>A custom binding for MS SQL Server which can be used in an Azure Function project.</Description>
     <PackageProjectUrl>https://github.com/Jandev/azurefunctions-sqlbinding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Jandev/azurefunctions-sqlbinding</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
-    <PackageTags>AzureFunctions Bindings SQL</PackageTags>
-    <PackageReleaseNotes>The initial version of a SQL Server input binding for usage in Azure Functions.</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>Azure Functions, Binding, SQL, C#</PackageTags>
+    <PackageReleaseNotes>- The initial version of a SQL Server input binding for usage in Azure Functions.
+- Package added with logo
+- Added support for Managed Service Identities via the `ISqlBindingTokenProvider`
+</PackageReleaseNotes>
+    <PackageIcon>icon-logo.png</PackageIcon>
+    <IconUrl>https://github.com/Jandev/azurefunctions-sqlbinding/blob/main/icon-logo.png</IconUrl>
+    <Version>1.0.0</Version>
+    <FileVersion>1.0.0.0</FileVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.WebJobs" Version="3.0.8" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\icon-logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
